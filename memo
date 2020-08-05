@@ -1,0 +1,44 @@
+        <div class="main">
+            <h1>プログラミングに役立つ掲示板desuyo</h1>
+            <div class="main2">
+                <form method="post" action="insert.php">
+                <p>入力フォーム</p>
+                <div>
+                    <label>ハンドルネーム</label>
+                    <br>
+                    <input type="text" class="handlename" name="handlename" size="35">
+                </div>
+                <div>
+                    <label>タイトル</label>
+                    <br>
+                    <input type="text" class="title" name="title" size="35">
+                </div>
+                <div>
+                    <label>コメント</label>
+                    <br>
+                    <textarea class="comments" name="comments" cols="35" row="7">
+                    </textarea>
+                </div>
+                <div>
+                    <input type="submit" class="submit" value="送信する">
+                </div>
+                </form>
+            </div>
+            <?php 
+            
+            mb_internal_encoding("utf8");
+
+            $pdo = new PDO("mysql:dbname=lesson01;host=localhost;","root","root");
+            $stmt =$pdo->query("select * from 4each_keijiban");
+            
+            while ($row = $stmt->fetch()){
+                echo "<div class='kiji'>";
+                echo "<h3>".$row['title']."</h3>";
+                echo "<div class='contents'>";
+                echo $row['comments'];
+                echo "<div class='handlename'>posted by".$row['handlename']."</div>";
+                echo "</div>";
+                echo "</div>";
+            }
+            ?>
+        </div>
